@@ -7,25 +7,25 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 require_once( __DIR__ . "/../CustomData/CustomData.php" );
 
 # Internationalisation file
-$wgExtensionMessagesFiles['BreadCrumbs'] = __DIR__ . '/BreadCrumbs.i18n.php';
+$wgExtensionMessagesFiles['GeoCrumbs'] = __DIR__ . '/GeoCrumbs.i18n.php';
 
-$wgExtensionFunctions[] = 'wfSetupBreadCrumbs';
+$wgExtensionFunctions[] = 'wfSetupGeoCrumbs';
 
-$wgExtensionCredits['parserhook']['BreadCrumbs'] = array(
-	'name' => 'BreadCrumbs',
-	'url' => 'http://wikivoyage.org/tech/BreadCrumbs-Extension',
+$wgExtensionCredits['parserhook']['GeoCrumbs'] = array(
+	'name' => 'GeoCrumbs',
+	'url' => 'http://wikivoyage.org/tech/GeoCrumbs-Extension',
 	'author' => 'Roland Unger/Hans Musil',
 	'descriptionmsg' => 'bct-desc'
 );
 
-$wgHooks['LanguageGetMagic'][]	= 'wfBreadCrumbsParserFunction_Magic';
+$wgHooks['LanguageGetMagic'][]	= 'wfGeoCrumbsParserFunction_Magic';
 
 
-class BreadCrumbs {
+class GeoCrumbs {
 
 	var $mParserOptions = null;
 
-	function BreadCrumbs() {
+	function GeoCrumbs() {
 		$this->mPCache =& ParserCache::singleton();
 	}
 
@@ -121,7 +121,7 @@ class BreadCrumbs {
 	 */
 	function onSkinTemplateOutputPageBeforeExec( &$SkTmpl, &$QuickTmpl ) {
 
-		if( !wfRunHooks( 'BreadCrumbsBeforeOutput', array( &$this, &$SkTmpl, &$QuickTmpl ) ) ) {
+		if( !wfRunHooks( 'GeoCrumbsBeforeOutput', array( &$this, &$SkTmpl, &$QuickTmpl ) ) ) {
 			return true;
 		}
 
@@ -316,19 +316,19 @@ class BreadCrumbs {
 }
 
 
-function wfSetupBreadCrumbs() {
+function wfSetupGeoCrumbs() {
 	global $wgParser, $wgHooks;
-	global $wgBreadCrumbs;
+	global $wgGeoCrumbs;
 
-	$wgBreadCrumbs = new BreadCrumbs;
+	$wgGeoCrumbs = new GeoCrumbs;
 
-	$wgParser->setFunctionHook( 'isin', array( &$wgBreadCrumbs, 'onFuncIsIn' ) );
-	$wgHooks['ParserBeforeTidy'][] = array( &$wgBreadCrumbs, 'onParserBeforeTidy' );
-	$wgHooks['SkinTemplateOutputPageBeforeExec'][] = array( &$wgBreadCrumbs, 'onSkinTemplateOutputPageBeforeExec' );
+	$wgParser->setFunctionHook( 'isin', array( &$wgGeoCrumbs, 'onFuncIsIn' ) );
+	$wgHooks['ParserBeforeTidy'][] = array( &$wgGeoCrumbs, 'onParserBeforeTidy' );
+	$wgHooks['SkinTemplateOutputPageBeforeExec'][] = array( &$wgGeoCrumbs, 'onSkinTemplateOutputPageBeforeExec' );
 }
 
 
-function wfBreadCrumbsParserFunction_Magic( &$magicWords, $langCode ) {
+function wfGeoCrumbsParserFunction_Magic( &$magicWords, $langCode ) {
 	$magicWords['isin'] = array( 0, 'isin' );
 	return true;
 }

@@ -1,6 +1,6 @@
 <?php
 /*
- * Internationalisation file for BreadCrumbs extension.
+ * Internationalisation file for GeoCrumbs extension.
  *
  * @package MediaWiki
  * @subpackage Extensions

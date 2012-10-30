@@ -9,13 +9,16 @@
 $messages = array();
 
 $messages['en'] = array(
-	'bct-delimiter'  => '&gt;',
-	'bct-desc'       => 'The extension enables the output af a bread-crumbs navigation',
+	'geocrumbs-delimiter' => ' &gt; ',
+	'geocrumbs-desc'      => 'The extension enables the output af a bread-crumbs navigation',
+);
+
+$messages['qqq'] = array(
+	'geocrumbs-delimiter' => 'Split character for breadcrumb links',
+	'geocrumbs-desc'      => '{{desc}}',
 );
 
 $messages['de'] = array(
-	'bct-delimiter'  => '&gt;',
-	'bct-desc'       => 'Die Erweiterung ermöglicht die Ausgabe eine Brotkrümelnavigation',
+	'geocrumbs-delimiter' => ' &gt; ',
+	'geocrumbs-desc'      => 'Die Erweiterung ermöglicht die Ausgabe eine Brotkrümelnavigation',
 );
-
-?>

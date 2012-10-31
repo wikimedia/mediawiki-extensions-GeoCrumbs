@@ -1,6 +1,6 @@
 [gerrit]
 host=gerrit.wikimedia.org
 port=29418
-project=mediawiki/extensions/GeoCrumbs
+project=mediawiki/extensions/GeoCrumbs.git
 defaultbranch=master
 defaultrebase=0

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Internationalisation file for GeoCrumbs extension.
  *
  * @package MediaWiki
@@ -9,8 +9,8 @@
 $messages = array();
 
 $messages['en'] = array(
-	'geocrumbs-delimiter' => ' &gt; ',
-	'geocrumbs-desc'      => 'The extension enables the output af a bread-crumbs navigation',
+	'geocrumbs-delimiter' => '&#32;>&#32;',
+	'geocrumbs-desc' => 'Adds a trail of bread crumbs to the page',
 );
 
 $messages['qqq'] = array(
@@ -19,6 +19,7 @@ $messages['qqq'] = array(
 );
 
 $messages['de'] = array(
-	'geocrumbs-delimiter' => ' &gt; ',
+	'geocrumbs-delimiter' => '&#32;>&#32;',
 	'geocrumbs-desc'      => 'Die Erweiterung ermöglicht die Ausgabe eine Brotkrümelnavigation',
 );
+

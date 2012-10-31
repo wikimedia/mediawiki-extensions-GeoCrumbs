@@ -18,10 +18,10 @@ $wgHooks['ParserBeforeTidy'][] = array( &$wgGeoCrumbs, 'onParserBeforeTidy' );
 $wgHooks['SkinTemplateOutputPageBeforeExec'][] = array( &$wgGeoCrumbs, 'onSkinTemplateOutputPageBeforeExec' );
 
 // credits
-$wgExtensionCredits['parserhook']['Insider'] = array(
+$wgExtensionCredits['parserhook'][] = array(
 	'path' => __FILE__,
 	'name' => 'GeoCrumbs',
-	'url' => '//www.mediawiki.org/wiki/Extension:GeoCrumbs',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:GeoCrumbs',
 	'descriptionmsg' => 'geocrumbs-desc',
 	'author' => array( 'Roland Unger', 'Hans Musil', 'Matthias Mullie' ),
 	'version' => '1.01'

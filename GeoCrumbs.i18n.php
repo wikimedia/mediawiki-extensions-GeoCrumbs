@@ -19,7 +19,6 @@ $messages['qqq'] = array(
 );
 
 $messages['de'] = array(
-	'geocrumbs-delimiter' => '&#32;>&#32;',
 	'geocrumbs-desc'      => 'Die Erweiterung ermöglicht die Ausgabe eine Brotkrümelnavigation',
 );
 

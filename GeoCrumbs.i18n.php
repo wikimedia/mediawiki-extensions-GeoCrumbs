@@ -14,16 +14,19 @@ $messages['en'] = array(
 );
 
 /** Message documentation (Message documentation)
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'geocrumbs-delimiter' => 'Split character for breadcrumb links',
+	'geocrumbs-delimiter' => '{{Optional}}
+Split character for breadcrumb links',
 	'geocrumbs-desc' => '{{desc}}',
 );
 
 /** German (Deutsch)
+ * @author Metalhead64
  */
 $messages['de'] = array(
-	'geocrumbs-desc' => 'Die Erweiterung ermöglicht die Ausgabe eine Brotkrümelnavigation',
+	'geocrumbs-desc' => 'Ermöglicht die Ausgabe einer Brotkrümelnavigation',
 );
 
 /** Spanish (español)
@@ -31,6 +34,20 @@ $messages['de'] = array(
  */
 $messages['es'] = array(
 	'geocrumbs-desc' => 'Agrega un hilo de Ariadna (enlaces del recorrido de navegación) a la página',
+);
+
+/** Upper Sorbian (hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'geocrumbs-desc' => 'Přidawa stronje slěd srjódkow',
+);
+
+/** Japanese (日本語)
+ * @author Shirayuki
+ */
+$messages['ja'] = array(
+	'geocrumbs-desc' => 'パンくずリストをページに追加する',
 );
 
 /** Macedonian (македонски)

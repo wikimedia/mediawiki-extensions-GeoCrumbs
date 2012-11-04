@@ -36,6 +36,13 @@ $messages['es'] = array(
 	'geocrumbs-desc' => 'Agrega un hilo de Ariadna (enlaces del recorrido de navegación) a la página',
 );
 
+/** Galician (galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'geocrumbs-desc' => 'Engade un conxunto de ligazóns de navegación baixo a barra de lapelas',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -48,6 +55,13 @@ $messages['hsb'] = array(
  */
 $messages['ja'] = array(
 	'geocrumbs-desc' => 'パンくずリストをページに追加する',
+);
+
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'geocrumbs-desc' => '문서에 부스러기 목록을 추가',
 );
 
 /** Macedonian (македонски)

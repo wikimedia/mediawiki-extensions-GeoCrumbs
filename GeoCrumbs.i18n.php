@@ -36,6 +36,13 @@ $messages['es'] = array(
 	'geocrumbs-desc' => 'Agrega un hilo de Ariadna (enlaces del recorrido de navegación) a la página',
 );
 
+/** French (français)
+ * @author Gomoko
+ */
+$messages['fr'] = array(
+	'geocrumbs-desc' => 'Ajoute une piste de miettes de pain à la page',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
@@ -48,6 +55,13 @@ $messages['gl'] = array(
  */
 $messages['hsb'] = array(
 	'geocrumbs-desc' => 'Přidawa stronje slěd srjódkow',
+);
+
+/** Italian (italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'geocrumbs-desc' => 'Mostra gli utenti il percorso attraverso la wiki',
 );
 
 /** Japanese (日本語)

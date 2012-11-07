@@ -50,6 +50,13 @@ $messages['gl'] = array(
 	'geocrumbs-desc' => 'Engade un conxunto de ligazóns de navegación baixo a barra de lapelas',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'geocrumbs-desc' => 'הוסף "שביל פירורי לחם" לדף',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -83,4 +90,18 @@ $messages['ko'] = array(
  */
 $messages['mk'] = array(
 	'geocrumbs-desc' => 'Става траги од трошки во страница',
+);
+
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'geocrumbs-desc' => 'Menambahkan jejak serdak roti pada halaman',
+);
+
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'geocrumbs-desc' => 'Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk',
 );

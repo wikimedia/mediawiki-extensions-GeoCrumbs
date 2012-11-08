@@ -105,3 +105,10 @@ $messages['ms'] = array(
 $messages['nl'] = array(
 	'geocrumbs-desc' => 'Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk',
 );
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'geocrumbs-desc' => 'Thêm đường dẫn đến trang',
+);

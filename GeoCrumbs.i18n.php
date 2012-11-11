@@ -19,7 +19,7 @@ $messages['en'] = array(
 $messages['qqq'] = array(
 	'geocrumbs-delimiter' => '{{Optional}}
 Split character for breadcrumb links',
-	'geocrumbs-desc' => '{{desc}}',
+	'geocrumbs-desc' => '{{desc|name=Geo Crumbs|url=http://www.mediawiki.org/wiki/Extension:GeoCrumbs}}',
 );
 
 /** German (Deutsch)

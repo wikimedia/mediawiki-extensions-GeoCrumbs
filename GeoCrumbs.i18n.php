@@ -106,6 +106,13 @@ $messages['nl'] = array(
 	'geocrumbs-desc' => 'Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk',
 );
 
+/** Ukrainian (українська)
+ * @author Base
+ */
+$messages['uk'] = array(
+	'geocrumbs-desc' => 'Додає слід із хлібних крихт на сторінку',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
  */

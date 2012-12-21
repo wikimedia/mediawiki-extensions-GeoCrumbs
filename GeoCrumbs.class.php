@@ -95,7 +95,7 @@ class GeoCrumbs {
 
 		$breadcrumbs = $this->makeTrail( $skinTpl->getTitle() );
 
-		if ( $breadcrumbs ) {
+		if ( count( $breadcrumbs ) > 1 ) {
 			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(), $breadcrumbs );
 
 			$oldsubtitle = $QuickTmpl->data['subtitle'];

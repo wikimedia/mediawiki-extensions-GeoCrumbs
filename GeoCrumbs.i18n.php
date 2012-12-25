@@ -106,6 +106,13 @@ $messages['nl'] = array(
 	'geocrumbs-desc' => 'Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'geocrumbs-desc' => 'A gionta com na trassa ëd farin-a a la pagina',
+);
+
 /** Ukrainian (українська)
  * @author Base
  */

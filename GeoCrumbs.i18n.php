@@ -36,6 +36,13 @@ $messages['es'] = array(
 	'geocrumbs-desc' => 'Agrega un hilo de Ariadna (enlaces del recorrido de navegación) a la página',
 );
 
+/** Finnish (suomi)
+ * @author VezonThunder
+ */
+$messages['fi'] = array(
+	'geocrumbs-desc' => 'Näyttää käytetyn navigaatioreitin sivulla',
+);
+
 /** French (français)
  * @author Gomoko
  */

@@ -114,10 +114,11 @@ $messages['nl'] = array(
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  */
 $messages['pms'] = array(
-	'geocrumbs-desc' => 'A gionta com na trassa ëd farin-a a la pagina',
+	'geocrumbs-desc' => 'A gionta com na carzà ëd frise ëd pan a la pàgina',
 );
 
 /** Ukrainian (українська)

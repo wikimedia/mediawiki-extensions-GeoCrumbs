@@ -169,6 +169,9 @@ class GeoCrumbs {
 		}
 
 		$page = WikiPage::newFromID( $pageId );
+		if ( !$page ) {
+			return null;
+		}
 		return $page->getParserOutput( $page->makeParserOptions( $wgUser ) );
 	}
 }

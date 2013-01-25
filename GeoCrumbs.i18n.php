@@ -121,6 +121,20 @@ $messages['pms'] = array(
 	'geocrumbs-desc' => 'A gionta com na carzà ëd frise ëd pan a la pàgina',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'geocrumbs-desc' => "Aggiugne 'na prove de percorse a 'a pàgene",
+);
+
+/** Russian (русский)
+ * @author DCamer
+ */
+$messages['ru'] = array(
+	'geocrumbs-desc' => 'Добавляет навигационный путь по сайту на страницу',
+);
+
 /** Ukrainian (українська)
  * @author Base
  */

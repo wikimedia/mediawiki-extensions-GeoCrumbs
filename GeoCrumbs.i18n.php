@@ -85,6 +85,13 @@ $messages['ja'] = array(
 	'geocrumbs-desc' => 'パンくずリストをページに追加する',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'geocrumbs-delimiter' => '&#32;>&#32;',
+);
+
 /** Korean (한국어)
  * @author 아라
  */

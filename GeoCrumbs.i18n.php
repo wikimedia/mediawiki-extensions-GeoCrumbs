@@ -22,6 +22,13 @@ Split character for breadcrumb links',
 	'geocrumbs-desc' => '{{desc|name=Geo Crumbs|url=http://www.mediawiki.org/wiki/Extension:GeoCrumbs}}',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'geocrumbs-desc' => "Amiesta un camín d'enllaces de navegación a la páxina",
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */

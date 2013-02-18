@@ -162,3 +162,10 @@ $messages['uk'] = array(
 $messages['vi'] = array(
 	'geocrumbs-desc' => 'Thêm đường dẫn đến trang',
 );
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'geocrumbs-desc' => '添加一个面包屑轨迹到页面',
+);

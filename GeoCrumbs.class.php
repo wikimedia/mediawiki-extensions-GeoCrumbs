@@ -113,13 +113,15 @@ class GeoCrumbs {
 	 */
 	public function makeTrail( Title $title ) {
 		$breadcrumbs = array();
-
-		// avoid cyclic trails & define emergency break
 		$idStack = array();
-		$cnt = 20;
 
-		while ( $title && $cnt-- ) {
-			$link = Linker::link( $title, $title->getSubpageText() );
+		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
+			// do not link the final breadcrumb
+			if ( $cnt == 0 ) {
+				$link = $title->getSubpageText();
+			} else {
+				$link = Linker::link( $title, $title->getSubpageText() );
+			}
 
 			// mark redirects with italics.
 			if ( $title->isRedirect() ) {
@@ -127,12 +129,13 @@ class GeoCrumbs {
 			}
 			array_unshift( $breadcrumbs, $link );
 
+			// avoid cyclic trails
 			if ( in_array( $title->getArticleID(), $idStack ) ) {
 				$breadcrumbs[0] = Html::rawElement( 'strike', array(), $breadcrumbs[0] );
 				break;
 			}
-
 			$idStack[] = $title->getArticleID();
+
 			$title = $this->getParentRegion( $title );
 		}
 

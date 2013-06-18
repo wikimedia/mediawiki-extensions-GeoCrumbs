@@ -29,6 +29,13 @@ $messages['ast'] = array(
 	'geocrumbs-desc' => "Amiesta un camín d'enllaces de navegación a la páxina",
 );
 
+/** Bengali (বাংলা)
+ * @author Nasir8891
+ */
+$messages['bn'] = array(
+	'geocrumbs-desc' => 'ব্যবহারকারীদেরকে উইকির ভেতর দিয়ে পথ দেখায়।',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */

@@ -110,7 +110,7 @@ $messages['ka'] = array(
  * @author 아라
  */
 $messages['ko'] = array(
-	'geocrumbs-desc' => '문서에 빵 부스러기 목록의 발자취를 추가',
+	'geocrumbs-desc' => '문서에 빵 부스러기 목록의 발자취를 추가합니다',
 );
 
 /** Macedonian (македонски)

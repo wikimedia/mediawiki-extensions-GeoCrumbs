@@ -134,6 +134,13 @@ $messages['nl'] = array(
 	'geocrumbs-desc' => 'Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'geocrumbs-desc' => 'Apond una pista de micas de pan a la pagina',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Borichèt
  * @author Dragonòt

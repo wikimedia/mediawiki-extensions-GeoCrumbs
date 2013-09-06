@@ -36,6 +36,13 @@ $messages['bn'] = array(
 	'geocrumbs-desc' => 'ব্যবহারকারীদেরকে উইকির ভেতর দিয়ে পথ দেখায়।',
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'geocrumbs-desc' => "Yn ychwanegu trywydd o friwsion bara i'r dudalen",
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */

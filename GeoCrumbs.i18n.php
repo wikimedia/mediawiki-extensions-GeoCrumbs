@@ -92,6 +92,13 @@ $messages['hsb'] = array(
 	'geocrumbs-desc' => 'Přidawa stronje slěd srjódkow',
 );
 
+/** Interlingua (interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'geocrumbs-desc' => 'Adde un pista de micas de pan al pagina',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */

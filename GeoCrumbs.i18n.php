@@ -155,6 +155,14 @@ $messages['oc'] = array(
 	'geocrumbs-desc' => 'Apond una pista de micas de pan a la pagina',
 );
 
+/** Polish (polski)
+ * @author Ty221
+ */
+$messages['pl'] = array(
+	'geocrumbs-delimiter' => '&#32;>&#32;',
+	'geocrumbs-desc' => 'Dodaje szlak bułki tartej do strony',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Borichèt
  * @author Dragonòt

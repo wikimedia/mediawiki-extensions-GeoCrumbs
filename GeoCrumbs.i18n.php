@@ -99,6 +99,13 @@ $messages['ia'] = array(
 	'geocrumbs-desc' => 'Adde un pista de micas de pan al pagina',
 );
 
+/** Iloko (Ilokano)
+ * @author Lam-ang
+ */
+$messages['ilo'] = array(
+	'geocrumbs-desc' => 'Agnayon kadagiti tugot ti maregmeg iti panid',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */

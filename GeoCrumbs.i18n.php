@@ -207,8 +207,9 @@ $messages['vi'] = array(
 );
 
 /** Simplified Chinese (中文（简体）‎)
+ * @author Xiaomingyan
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
-	'geocrumbs-desc' => '添加一个面包屑轨迹到页面',
+	'geocrumbs-desc' => '添加面包屑导航至页面',
 );

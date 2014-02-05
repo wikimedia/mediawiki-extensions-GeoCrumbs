@@ -73,8 +73,10 @@ $messages['fi'] = array(
 
 /** French (français)
  * @author Gomoko
+ * @author Verdy p
  */
 $messages['fr'] = array(
+	'geocrumbs-delimiter' => '&nbsp;>&#32;',
 	'geocrumbs-desc' => 'Ajoute une piste de miettes de pain à la page',
 );
 

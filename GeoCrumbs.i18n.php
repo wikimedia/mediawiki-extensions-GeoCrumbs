@@ -201,6 +201,13 @@ $messages['ru'] = array(
 	'geocrumbs-desc' => 'Добавляет навигационный путь по сайту на страницу',
 );
 
+/** Scots (Scots)
+ * @author John Reid
+ */
+$messages['sco'] = array(
+	'geocrumbs-desc' => 'Adds ae trail o bread crumbs til the page',
+);
+
 /** Ukrainian (українська)
  * @author Base
  */

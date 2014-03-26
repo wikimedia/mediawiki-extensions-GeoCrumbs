@@ -205,7 +205,7 @@ $messages['ru'] = array(
  * @author John Reid
  */
 $messages['sco'] = array(
-	'geocrumbs-desc' => 'Adds ae trail o bread crumbs til the page',
+	'geocrumbs-desc' => 'Eiks ae trail o bread crumbs til the page',
 );
 
 /** Ukrainian (українська)

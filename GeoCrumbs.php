@@ -8,6 +8,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgAutoloadClasses['GeoCrumbs'] = __DIR__ . '/GeoCrumbs.class.php';
 
 // extension & magic words i18n
+$wgMessagesDirs['GeoCrumbs'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['GeoCrumbs'] = __DIR__ . '/GeoCrumbs.i18n.php';
 $wgExtensionMessagesFiles['GeoCrumbsMagic'] = __DIR__ . '/GeoCrumbs.i18n.magic.php';
 
@@ -24,5 +25,5 @@ $wgExtensionCredits['parserhook'][] = array(
 	'url' => 'https://www.mediawiki.org/wiki/Extension:GeoCrumbs',
 	'descriptionmsg' => 'geocrumbs-desc',
 	'author' => array( 'Roland Unger', 'Hans Musil', 'Matthias Mullie' ),
-	'version' => '1.01'
+	'version' => '1.1.0'
 );

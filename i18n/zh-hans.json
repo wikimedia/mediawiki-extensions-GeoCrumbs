@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Xiaomingyan",
-            "Yfdyh000"
-        ]
-    },
-    "geocrumbs-desc": "添加面包屑导航至页面"
+	"@metadata": {
+		"authors": [
+			"Xiaomingyan",
+			"Yfdyh000"
+		]
+	},
+	"geocrumbs-desc": "添加面包屑导航至页面"
 }

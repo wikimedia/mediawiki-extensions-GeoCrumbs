@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "DCamer"
-        ]
-    },
-    "geocrumbs-desc": "Добавляет навигационный путь по сайту на страницу"
+	"@metadata": {
+		"authors": [
+			"DCamer"
+		]
+	},
+	"geocrumbs-desc": "Добавляет навигационный путь по сайту на страницу"
 }

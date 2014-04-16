@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ty221"
-        ]
-    },
-    "geocrumbs-delimiter": "&#32;>&#32;",
-    "geocrumbs-desc": "Dodaje szlak bułki tartej do strony"
+	"@metadata": {
+		"authors": [
+			"Ty221"
+		]
+	},
+	"geocrumbs-delimiter": "&#32;>&#32;",
+	"geocrumbs-desc": "Dodaje szlak bułki tartej do strony"
 }

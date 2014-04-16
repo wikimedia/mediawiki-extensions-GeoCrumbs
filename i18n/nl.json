@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Siebrand"
-        ]
-    },
-    "geocrumbs-desc": "Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk"
+	"@metadata": {
+		"authors": [
+			"Siebrand"
+		]
+	},
+	"geocrumbs-desc": "Voegt een spoor toe van de navigatiegeschiedenis onder de menubalk"
 }

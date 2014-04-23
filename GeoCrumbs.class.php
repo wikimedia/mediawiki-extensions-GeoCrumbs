@@ -115,12 +115,26 @@ class GeoCrumbs {
 		$breadcrumbs = array();
 		$idStack = array();
 
+		if ( $title->getArticleID() <= 0 ) {
+			return array();
+		}
+
 		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
+			$parserCache = $this->getParserCache( $title->getArticleID() );
+			if ( $parserCache->getProperty( 'displaytitle' ) == false && $parserCache->getTitleText() !== '' ) {
+				$linkText = $parserCache->getTitleText();
+				$linkTarget = Title::newFromText( $linkText );
+				if ( $linkTarget ) {
+					$linkText = $linkTarget->getSubpageText();
+				}
+			} else {
+				$linkText = $title->getSubpageText();
+			}
 			// do not link the final breadcrumb
 			if ( $cnt == 0 ) {
-				$link = $title->getSubpageText();
+				$link = $linkText;
 			} else {
-				$link = Linker::link( $title, $title->getSubpageText() );
+				$link = Linker::link( $title, $linkText );
 			}
 
 			// mark redirects with italics.

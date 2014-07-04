@@ -75,9 +75,11 @@ class GeoCrumbs {
 		if ( !empty( $existing ) ) {
 			return;
 		}
+
 		// if we're dealing with a subpage, the parent should be in breadcrumb
 		$parent = $title->getBaseTitle();
-		if ( $parent->getArticleID() != $title->getArticleID() ) {
+
+		if ( $parent && $parent->getArticleID() != $title->getArticleID() ) {
 			$article = array( 'id' => $parent->getArticleID() );
 			$customData->setParserData( $parserOutput, 'GeoCrumbIsIn', $article );
 		}

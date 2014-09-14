@@ -123,7 +123,11 @@ class GeoCrumbs {
 
 		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
 			$parserCache = $this->getParserCache( $title->getArticleID() );
-			if ( $parserCache->getProperty( 'displaytitle' ) == false && $parserCache->getTitleText() !== '' ) {
+			if (
+				$parserCache &&
+				$parserCache->getProperty( 'displaytitle' ) == false &&
+				$parserCache->getTitleText() !== ''
+			) {
 				$linkText = $parserCache->getTitleText();
 				$linkTarget = Title::newFromText( $linkText );
 				if ( $linkTarget ) {

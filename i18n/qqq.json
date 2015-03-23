@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki"
+			"Shirayuki",
+			"Umherirrender"
 		]
 	},
 	"geocrumbs-delimiter": "{{Optional}}\nSplit character for breadcrumb links",
-	"geocrumbs-desc": "{{desc|name=Geo Crumbs|url=http://www.mediawiki.org/wiki/Extension:GeoCrumbs}}"
+	"geocrumbs-desc": "{{desc|name=Geo Crumbs|url=https://www.mediawiki.org/wiki/Extension:GeoCrumbs}}"
 }

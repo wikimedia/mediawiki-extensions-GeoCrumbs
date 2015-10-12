@@ -1,7 +1,7 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "geocrumbs-delimiter": "&#32;>&#32;",
-    "geocrumbs-desc": "Adds a trail of bread crumbs to the page"
+	"@metadata": {
+		"authors": []
+	},
+	"geocrumbs-delimiter": "&#32;>&#32;",
+	"geocrumbs-desc": "Adds a trail of bread crumbs to the page"
 }

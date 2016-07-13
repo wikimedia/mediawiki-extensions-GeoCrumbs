@@ -91,9 +91,6 @@ class GeoCrumbs {
 	 * @return bool
 	 */
 	public function onSkinTemplateOutputPageBeforeExec( SkinTemplate &$skinTpl, &$QuickTmpl ) {
-		if ( !wfRunHooks( 'GeoCrumbsBeforeOutput', array( &$this, &$skinTpl, &$QuickTmpl ) ) ) {
-			return true;
-		}
 
 		$breadcrumbs = $this->makeTrail( $skinTpl->getTitle() );
 

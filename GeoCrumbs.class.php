@@ -1,22 +1,20 @@
 <?php
 
 class GeoCrumbs {
-	var $mParserOptions = array();
 
 	/**
 	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function parserHooks( Parser &$parser ) {
-		global $wgGeoCrumbs;
-		$parser->setFunctionHook( 'isin', array( &$wgGeoCrumbs, 'onFuncIsIn' ) );
+	public static function onParserFirstCallInit( Parser &$parser ) {
+		$parser->setFunctionHook( 'isin', 'GeoCrumbs::onFuncIsIn' );
 		return true;
 	}
 
 	/**
 	 * @return CustomData
 	 */
-	public function getCustomData() {
+	private static function getCustomData() {
 		global $wgCustomData;
 
 		if ( !$wgCustomData instanceof CustomData ) {
@@ -31,14 +29,14 @@ class GeoCrumbs {
 	 * @param string $article
 	 * @return string
 	 */
-	public function onFuncIsIn( Parser &$parser, $article ) {
+	public static function onFuncIsIn( Parser &$parser, $article ) {
 		// Tribute to Evan!
 		$article = urldecode( $article );
 
 		$title = Title::newFromText( $article, $parser->mTitle->getNamespace() );
 		if ( $title ) {
 			$article = array( 'id' => $title->getArticleID() );
-			$this->getCustomData()->setParserData( $parser->mOutput, 'GeoCrumbIsIn', $article );
+			self::getCustomData()->setParserData( $parser->mOutput, 'GeoCrumbIsIn', $article );
 		}
 
 		return '';
@@ -54,9 +52,9 @@ class GeoCrumbs {
 	 * @param string $text
 	 * @return bool
 	 */
-	public function onParserBeforeTidy( Parser &$parser, &$text ) {
+	public static function onParserBeforeTidy( Parser &$parser, &$text ) {
 		if ( $parser->getTitle() ) {
-			$this->completeImplicitIsIn( $parser->mOutput, $parser->mTitle );
+			self::completeImplicitIsIn( $parser->mOutput, $parser->mTitle );
 		}
 
 		return true;
@@ -68,9 +66,9 @@ class GeoCrumbs {
 	 * @param ParserOutput|OutputPage $parserOutput
 	 * @param Title $title
 	 */
-	public function completeImplicitIsIn( &$parserOutput, Title $title ) {
+	public static function completeImplicitIsIn( &$parserOutput, Title $title ) {
 		// only do implicitly if none is defined through parser hook
-		$customData = $this->getCustomData();
+		$customData = self::getCustomData();
 		$existing = $customData->getParserData( $parserOutput, 'GeoCrumbIsIn' );
 		if ( !empty( $existing ) ) {
 			return;
@@ -90,9 +88,8 @@ class GeoCrumbs {
 	 * @param QuickTemplate $QuickTmpl
 	 * @return bool
 	 */
-	public function onSkinTemplateOutputPageBeforeExec( SkinTemplate &$skinTpl, &$QuickTmpl ) {
-
-		$breadcrumbs = $this->makeTrail( $skinTpl->getTitle() );
+	public static function onSkinTemplateOutputPageBeforeExec( SkinTemplate &$skinTpl, &$QuickTmpl ) {
+		$breadcrumbs = self::makeTrail( $skinTpl->getTitle() );
 
 		if ( count( $breadcrumbs ) > 1 ) {
 			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(), $breadcrumbs );
@@ -110,7 +107,7 @@ class GeoCrumbs {
 	 * @param Title $title
 	 * @return array
 	 */
-	public function makeTrail( Title $title ) {
+	public static function makeTrail( Title $title ) {
 		$breadcrumbs = array();
 		$idStack = array();
 
@@ -119,7 +116,7 @@ class GeoCrumbs {
 		}
 
 		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
-			$parserCache = $this->getParserCache( $title->getArticleID() );
+			$parserCache = self::getParserCache( $title->getArticleID() );
 			if (
 				$parserCache &&
 				$parserCache->getProperty( 'displaytitle' ) == false &&
@@ -153,7 +150,7 @@ class GeoCrumbs {
 			}
 			$idStack[] = $title->getArticleID();
 
-			$title = $this->getParentRegion( $title );
+			$title = self::getParentRegion( $title );
 		}
 
 		return $breadcrumbs;
@@ -163,13 +160,13 @@ class GeoCrumbs {
 	 * @param Title $oldTitle
 	 * @return Title|null
 	 */
-	public function getParentRegion( Title $childTitle ) {
+	public static function getParentRegion( Title $childTitle ) {
 		if ( $childTitle->getArticleID() <= 0 ) {
 			return null;
 		}
 
-		$parserCache = $this->getParserCache( $childTitle->getArticleID() );
-		$article = $this->getCustomData()->getParserData( $parserCache, 'GeoCrumbIsIn' );
+		$parserCache = self::getParserCache( $childTitle->getArticleID() );
+		$article = self::getCustomData()->getParserData( $parserCache, 'GeoCrumbIsIn' );
 		if ( $article ) {
 			return Title::newFromID( $article['id'] );
 		}
@@ -181,7 +178,7 @@ class GeoCrumbs {
 	 * @param $pageId
 	 * @return null|object|ParserOutput
 	 */
-	public function getParserCache( $pageId ) {
+	public static function getParserCache( $pageId ) {
 		global $wgUser;
 
 		if ( $pageId <= 0 ) {

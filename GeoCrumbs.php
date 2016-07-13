@@ -13,10 +13,9 @@ $wgExtensionMessagesFiles['GeoCrumbs'] = __DIR__ . '/GeoCrumbs.i18n.php';
 $wgExtensionMessagesFiles['GeoCrumbsMagic'] = __DIR__ . '/GeoCrumbs.i18n.magic.php';
 
 // hooks
-$wgGeoCrumbs = new GeoCrumbs;
-$wgHooks['ParserFirstCallInit'][] = 'GeoCrumbs::parserHooks';
-$wgHooks['ParserBeforeTidy'][] = array( &$wgGeoCrumbs, 'onParserBeforeTidy' );
-$wgHooks['SkinTemplateOutputPageBeforeExec'][] = array( &$wgGeoCrumbs, 'onSkinTemplateOutputPageBeforeExec' );
+$wgHooks['ParserFirstCallInit'][] = 'GeoCrumbs::onParserFirstCallInit';
+$wgHooks['ParserBeforeTidy'][] = 'GeoCrumbs::onParserBeforeTidy';
+$wgHooks['SkinTemplateOutputPageBeforeExec'][] = 'GeoCrumbs::onSkinTemplateOutputPageBeforeExec';
 
 // credits
 $wgExtensionCredits['parserhook'][] = array(

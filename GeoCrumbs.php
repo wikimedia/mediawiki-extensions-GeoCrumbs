@@ -15,7 +15,7 @@ $wgExtensionMessagesFiles['GeoCrumbsMagic'] = __DIR__ . '/GeoCrumbs.i18n.magic.p
 // hooks
 $wgHooks['ParserFirstCallInit'][] = 'GeoCrumbs::onParserFirstCallInit';
 $wgHooks['ParserBeforeTidy'][] = 'GeoCrumbs::onParserBeforeTidy';
-$wgHooks['SkinTemplateOutputPageBeforeExec'][] = 'GeoCrumbs::onSkinTemplateOutputPageBeforeExec';
+$wgHooks['OutputPageParserOutput'][] = 'GeoCrumbs::onOutputPageParserOutput';
 
 // credits
 $wgExtensionCredits['parserhook'][] = array(

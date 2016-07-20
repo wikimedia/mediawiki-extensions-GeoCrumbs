@@ -70,20 +70,16 @@ class GeoCrumbs {
 	}
 
 	/**
-	 * @param SkinTemplate $skinTpl
-	 * @param QuickTemplate $QuickTmpl
+	 * @param OutputPage $out
+	 * @param ParserOutput $parserOutput
 	 * @return bool
 	 */
-	public static function onSkinTemplateOutputPageBeforeExec( SkinTemplate &$skinTpl, &$QuickTmpl ) {
-		$breadcrumbs = self::makeTrail( $skinTpl->getTitle() );
+	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
+		$breadcrumbs = self::makeTrail( $out->getTitle(), $parserOutput );
 
 		if ( count( $breadcrumbs ) > 1 ) {
 			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(), $breadcrumbs );
-
-			$oldsubtitle = $QuickTmpl->data['subtitle'];
-			$subtitle = $oldsubtitle ? "$breadcrumbs<br />\n$oldsubtitle" : $breadcrumbs;
-
-			$QuickTmpl->set( 'subtitle', $subtitle );
+			$out->addSubtitle( $breadcrumbs );
 		}
 
 		return true;
@@ -91,9 +87,10 @@ class GeoCrumbs {
 
 	/**
 	 * @param Title $title
+	 * @param ParserOutput $parserOutput
 	 * @return array
 	 */
-	public static function makeTrail( Title $title ) {
+	public static function makeTrail( Title $title, ParserOutput $parserOutput ) {
 		$breadcrumbs = array();
 		$idStack = array();
 
@@ -102,7 +99,12 @@ class GeoCrumbs {
 		}
 
 		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
-			$parserCache = self::getParserCache( $title->getArticleID() );
+			if ( $parserOutput ) {
+				$parserCache = $parserOutput;
+				$parserOutput = false;
+			} else {
+				$parserCache = self::getParserCache( $title->getArticleID() );
+			}
 			if (
 				$parserCache &&
 				$parserCache->getProperty( 'displaytitle' ) == false &&
@@ -136,22 +138,17 @@ class GeoCrumbs {
 			}
 			$idStack[] = $title->getArticleID();
 
-			$title = self::getParentRegion( $title );
+			$title = self::getParentRegion( $parserCache );
 		}
 
 		return $breadcrumbs;
 	}
 
 	/**
-	 * @param Title $oldTitle
+	 * @param ParserOutput $parserCache
 	 * @return Title|null
 	 */
-	public static function getParentRegion( Title $childTitle ) {
-		if ( $childTitle->getArticleID() <= 0 ) {
-			return null;
-		}
-
-		$parserCache = self::getParserCache( $childTitle->getArticleID() );
+	public static function getParentRegion( ParserOutput $parserCache ) {
 		$article = $parserCache->getExtensionData( 'GeoCrumbIsIn' );
 		if ( !$article ) {
 			// check CustomData stuff for b/c

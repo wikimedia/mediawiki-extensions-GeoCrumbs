@@ -176,18 +176,18 @@ class GeoCrumbs {
 
 	/**
 	 * @param $pageId
-	 * @return null|object|ParserOutput
+	 * @return bool|ParserOutput false if not found
 	 */
 	public static function getParserCache( $pageId ) {
 		global $wgUser;
 
 		if ( $pageId <= 0 ) {
-			return null;
+			return false;
 		}
 
 		$page = WikiPage::newFromID( $pageId );
 		if ( !$page ) {
-			return null;
+			return false;
 		}
 		return $page->getParserOutput( $page->makeParserOptions( $wgUser ) );
 	}

@@ -1,28 +1,16 @@
 <?php
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is a MediaWiki extension, it is not a valid entry point' );
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'GeoCrumbs' );
+	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	$wgMessagesDirs['GeoCrumbs'] = __DIR__ . '/i18n';
+	$wgExtensionMessagesFiles['GeoCrumbsMagic'] = __DIR__ . '/GeoCrumbs.i18n.magic.php';
+	/* wfWarn(
+		'Deprecated PHP entry point used for GeoCrumbs extension. ' .
+		'Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	); */
+	return;
+} else {
+	die( 'This version of the GeoCrumbs extension requires MediaWiki 1.25+' );
 }
-
-// autoloader
-$wgAutoloadClasses['GeoCrumbs'] = __DIR__ . '/GeoCrumbs.class.php';
-
-// extension & magic words i18n
-$wgMessagesDirs['GeoCrumbs'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['GeoCrumbs'] = __DIR__ . '/GeoCrumbs.i18n.php';
-$wgExtensionMessagesFiles['GeoCrumbsMagic'] = __DIR__ . '/GeoCrumbs.i18n.magic.php';
-
-// hooks
-$wgHooks['ParserFirstCallInit'][] = 'GeoCrumbs::onParserFirstCallInit';
-$wgHooks['ParserBeforeTidy'][] = 'GeoCrumbs::onParserBeforeTidy';
-$wgHooks['OutputPageParserOutput'][] = 'GeoCrumbs::onOutputPageParserOutput';
-
-// credits
-$wgExtensionCredits['parserhook'][] = array(
-	'path' => __FILE__,
-	'name' => 'GeoCrumbs',
-	'url' => 'https://www.mediawiki.org/wiki/Extension:GeoCrumbs',
-	'descriptionmsg' => 'geocrumbs-desc',
-	'author' => array( 'Roland Unger', 'Hans Musil', 'Matthias Mullie' ),
-	'version' => '1.2.0'
-);

@@ -12,19 +12,6 @@ class GeoCrumbs {
 	}
 
 	/**
-	 * @return CustomData
-	 */
-	private static function getCustomData() {
-		global $wgCustomData;
-
-		if ( !$wgCustomData instanceof CustomData ) {
-			throw new Exception( 'CustomData extension is not properly installed.' );
-		}
-
-		return $wgCustomData;
-	}
-
-	/**
 	 * @param Parser $parser
 	 * @param string $article
 	 * @return string
@@ -33,10 +20,10 @@ class GeoCrumbs {
 		// Tribute to Evan!
 		$article = urldecode( $article );
 
-		$title = Title::newFromText( $article, $parser->mTitle->getNamespace() );
+		$title = Title::newFromText( $article, $parser->getTitle()->getNamespace() );
 		if ( $title ) {
 			$article = array( 'id' => $title->getArticleID() );
-			self::getCustomData()->setParserData( $parser->mOutput, 'GeoCrumbIsIn', $article );
+			$parser->getOutput()->setExtensionData( 'GeoCrumbIsIn', $article );
 		}
 
 		return '';
@@ -63,14 +50,13 @@ class GeoCrumbs {
 	/**
 	 * Generates an IsIn from title for subpages.
 	 *
-	 * @param ParserOutput|OutputPage $parserOutput
+	 * @param ParserOutput $parserOutput
 	 * @param Title $title
 	 */
 	public static function completeImplicitIsIn( &$parserOutput, Title $title ) {
 		// only do implicitly if none is defined through parser hook
-		$customData = self::getCustomData();
-		$existing = $customData->getParserData( $parserOutput, 'GeoCrumbIsIn' );
-		if ( !empty( $existing ) ) {
+		$existing = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
+		if ( $existing !== null ) {
 			return;
 		}
 
@@ -79,7 +65,7 @@ class GeoCrumbs {
 
 		if ( !$parent->equals( $title ) ) {
 			$article = array( 'id' => $parent->getArticleID() );
-			$customData->setParserData( $parserOutput, 'GeoCrumbIsIn', $article );
+			$parserOutput->setExtensionData( 'GeoCrumbIsIn', $article );
 		}
 	}
 
@@ -166,7 +152,15 @@ class GeoCrumbs {
 		}
 
 		$parserCache = self::getParserCache( $childTitle->getArticleID() );
-		$article = self::getCustomData()->getParserData( $parserCache, 'GeoCrumbIsIn' );
+		$article = $parserCache->getExtensionData( 'GeoCrumbIsIn' );
+		if ( !$article ) {
+			// check CustomData stuff for b/c
+			if ( isset( $parserCache->mCustomData['GeoCrumbIsIn'] ) ) {
+				$article = $parserCache->mCustomData['GeoCrumbIsIn'];
+			} else {
+				return null;
+			}
+		}
 		if ( $article ) {
 			return Title::newFromID( $article['id'] );
 		}

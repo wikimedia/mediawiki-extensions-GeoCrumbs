@@ -24,5 +24,5 @@ $wgExtensionCredits['parserhook'][] = array(
 	'url' => 'https://www.mediawiki.org/wiki/Extension:GeoCrumbs',
 	'descriptionmsg' => 'geocrumbs-desc',
 	'author' => array( 'Roland Unger', 'Hans Musil', 'Matthias Mullie' ),
-	'version' => '1.1.0'
+	'version' => '1.2.0'
 );

@@ -40,8 +40,9 @@ class GeoCrumbs {
 	 * @return bool
 	 */
 	public static function onParserBeforeTidy( Parser &$parser, &$text ) {
-		if ( $parser->getTitle() ) {
-			self::completeImplicitIsIn( $parser->mOutput, $parser->mTitle );
+		$title = $parser->getTitle();
+		if ( $title && $title->isContentPage() ) {
+			self::completeImplicitIsIn( $parser->getOutput(), $title );
 		}
 
 		return true;

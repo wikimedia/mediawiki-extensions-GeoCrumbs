@@ -54,7 +54,7 @@ class GeoCrumbs {
 	 * @param ParserOutput $parserOutput
 	 * @param Title $title
 	 */
-	public static function completeImplicitIsIn( &$parserOutput, Title $title ) {
+	public static function completeImplicitIsIn( $parserOutput, Title $title ) {
 		// only do implicitly if none is defined through parser hook
 		$existing = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
 		if ( $existing !== null ) {

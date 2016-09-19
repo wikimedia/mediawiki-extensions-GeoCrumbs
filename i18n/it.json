@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"Tosky"
 		]
 	},
-	"geocrumbs-desc": "Mostra gli utenti il percorso attraverso la wiki"
+	"geocrumbs-desc": "Mostra gli utenti il percorso attraverso il wiki"
 }

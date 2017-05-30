@@ -1,7 +1,7 @@
 <?php
 
-$magicWords = array();
+$magicWords = [];
 
-$magicWords['en'] = array(
-	'isin' => array( 0, 'isin' ),
-);
+$magicWords['en'] = [
+	'isin' => [ 0, 'isin' ],
+];

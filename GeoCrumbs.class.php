@@ -22,7 +22,7 @@ class GeoCrumbs {
 
 		$title = Title::newFromText( $article, $parser->getTitle()->getNamespace() );
 		if ( $title ) {
-			$article = array( 'id' => $title->getArticleID() );
+			$article = [ 'id' => $title->getArticleID() ];
 			$parser->getOutput()->setExtensionData( 'GeoCrumbIsIn', $article );
 		}
 
@@ -65,7 +65,7 @@ class GeoCrumbs {
 		$parent = $title->getBaseTitle();
 
 		if ( !$parent->equals( $title ) ) {
-			$article = array( 'id' => $parent->getArticleID() );
+			$article = [ 'id' => $parent->getArticleID() ];
 			$parserOutput->setExtensionData( 'GeoCrumbIsIn', $article );
 		}
 	}
@@ -79,7 +79,8 @@ class GeoCrumbs {
 		$breadcrumbs = self::makeTrail( $out->getTitle(), $parserOutput );
 
 		if ( count( $breadcrumbs ) > 1 ) {
-			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(), $breadcrumbs );
+			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(),
+				$breadcrumbs );
 			$out->addSubtitle( $breadcrumbs );
 		}
 
@@ -92,11 +93,11 @@ class GeoCrumbs {
 	 * @return array
 	 */
 	public static function makeTrail( Title $title, ParserOutput $parserOutput ) {
-		$breadcrumbs = array();
-		$idStack = array();
+		$breadcrumbs = [];
+		$idStack = [];
 
 		if ( $title->getArticleID() <= 0 ) {
-			return array();
+			return [];
 		}
 
 		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
@@ -128,13 +129,13 @@ class GeoCrumbs {
 
 			// mark redirects with italics.
 			if ( $title->isRedirect() ) {
-				$link = Html::rawElement( 'i', array(), $link );
+				$link = Html::rawElement( 'i', [], $link );
 			}
 			array_unshift( $breadcrumbs, $link );
 
 			// avoid cyclic trails
 			if ( in_array( $title->getArticleID(), $idStack ) ) {
-				$breadcrumbs[0] = Html::rawElement( 'strike', array(), $breadcrumbs[0] );
+				$breadcrumbs[0] = Html::rawElement( 'strike', [], $breadcrumbs[0] );
 				break;
 			}
 			$idStack[] = $title->getArticleID();

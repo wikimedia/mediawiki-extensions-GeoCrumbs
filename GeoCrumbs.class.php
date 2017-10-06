@@ -3,7 +3,7 @@
 class GeoCrumbs {
 
 	/**
-	 * @param Parser $parser
+	 * @param Parser &$parser
 	 * @return bool
 	 */
 	public static function onParserFirstCallInit( Parser &$parser ) {
@@ -12,7 +12,7 @@ class GeoCrumbs {
 	}
 
 	/**
-	 * @param Parser $parser
+	 * @param Parser &$parser
 	 * @param string $article
 	 * @return string
 	 */
@@ -35,8 +35,8 @@ class GeoCrumbs {
 	 * We could add this at onSkinTemplateOutputPageBeforeExec too, but then it won't be in
 	 * ParserCache, available for other articles.
 	 *
-	 * @param Parser $parser
-	 * @param string $text
+	 * @param Parser &$parser
+	 * @param string &$text
 	 * @return bool
 	 */
 	public static function onParserBeforeTidy( Parser &$parser, &$text ) {
@@ -71,7 +71,7 @@ class GeoCrumbs {
 	}
 
 	/**
-	 * @param OutputPage $out
+	 * @param OutputPage &$out
 	 * @param ParserOutput $parserOutput
 	 * @return bool
 	 */
@@ -168,7 +168,7 @@ class GeoCrumbs {
 	}
 
 	/**
-	 * @param $pageId
+	 * @param int $pageId
 	 * @return bool|ParserOutput false if not found
 	 */
 	public static function getParserCache( $pageId ) {

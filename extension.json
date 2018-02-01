@@ -7,7 +7,7 @@
 		"Matthias Mullie"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:GeoCrumbs",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"descriptionmsg": "geocrumbs-desc",
 	"type": "parserhook",
 	"MessagesDirs": {

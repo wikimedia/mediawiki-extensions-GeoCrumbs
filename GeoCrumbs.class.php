@@ -140,7 +140,7 @@ class GeoCrumbs {
 			}
 			$idStack[] = $title->getArticleID();
 
-			$title = self::getParentRegion( $parserCache );
+			$title = $parserCache ? self::getParentRegion( $parserCache ) : null;
 		}
 
 		return $breadcrumbs;

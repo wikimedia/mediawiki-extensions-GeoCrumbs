@@ -1,13 +1,13 @@
 <?php
 
-class GeoCrumbs {
+class GeoCrumbsHooks {
 
 	/**
 	 * @param Parser &$parser
 	 * @return bool
 	 */
 	public static function onParserFirstCallInit( Parser &$parser ) {
-		$parser->setFunctionHook( 'isin', 'GeoCrumbs::onFuncIsIn' );
+		$parser->setFunctionHook( 'isin', 'GeoCrumbsHooks::onFuncIsIn' );
 		return true;
 	}
 

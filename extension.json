@@ -19,12 +19,12 @@
 		"GeoCrumbsMagic": "GeoCrumbs.i18n.magic.php"
 	},
 	"AutoloadClasses": {
-		"GeoCrumbs": "GeoCrumbs.class.php"
+		"GeoCrumbsHooks": "includes/GeoCrumbsHooks.php"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "GeoCrumbs::onParserFirstCallInit",
-		"ParserBeforeTidy": "GeoCrumbs::onParserBeforeTidy",
-		"OutputPageParserOutput": "GeoCrumbs::onOutputPageParserOutput"
+		"ParserFirstCallInit": "GeoCrumbsHooks::onParserFirstCallInit",
+		"ParserBeforeTidy": "GeoCrumbsHooks::onParserBeforeTidy",
+		"OutputPageParserOutput": "GeoCrumbsHooks::onOutputPageParserOutput"
 	},
 	"manifest_version": 1
 }

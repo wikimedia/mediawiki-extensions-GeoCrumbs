@@ -3,20 +3,20 @@
 class GeoCrumbsHooks {
 
 	/**
-	 * @param Parser &$parser
+	 * @param Parser $parser
 	 * @return bool
 	 */
-	public static function onParserFirstCallInit( Parser &$parser ) {
+	public static function onParserFirstCallInit( Parser $parser ) {
 		$parser->setFunctionHook( 'isin', 'GeoCrumbsHooks::onFuncIsIn' );
 		return true;
 	}
 
 	/**
-	 * @param Parser &$parser
+	 * @param Parser $parser
 	 * @param string $article
 	 * @return string
 	 */
-	public static function onFuncIsIn( Parser &$parser, $article ) {
+	public static function onFuncIsIn( Parser $parser, $article ) {
 		// Tribute to Evan!
 		$article = urldecode( $article );
 
@@ -35,13 +35,13 @@ class GeoCrumbsHooks {
 	 * We could add this at onSkinTemplateOutputPageBeforeExec too, but then it won't be in
 	 * ParserCache, available for other articles.
 	 *
-	 * @param Parser &$parser
+	 * @param Parser $parser
 	 * @param string &$text
 	 * @return bool
 	 */
-	public static function onParserBeforeTidy( Parser &$parser, &$text ) {
+	public static function onParserBeforeTidy( Parser $parser, &$text ) {
 		$title = $parser->getTitle();
-		if ( $title && $title->isContentPage() ) {
+		if ( $title->isContentPage() ) {
 			self::completeImplicitIsIn( $parser->getOutput(), $title );
 		}
 
@@ -71,11 +71,11 @@ class GeoCrumbsHooks {
 	}
 
 	/**
-	 * @param OutputPage &$out
+	 * @param OutputPage $out
 	 * @param ParserOutput $parserOutput
 	 * @return bool
 	 */
-	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
+	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
 		$breadcrumbs = self::makeTrail( $out->getTitle(), $parserOutput );
 
 		if ( count( $breadcrumbs ) > 1 ) {

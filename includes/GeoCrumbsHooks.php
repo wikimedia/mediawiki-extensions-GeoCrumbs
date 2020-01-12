@@ -76,7 +76,7 @@ class GeoCrumbsHooks {
 	 * @return bool
 	 */
 	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
-		$breadcrumbs = self::makeTrail( $out->getTitle(), $parserOutput );
+		$breadcrumbs = self::makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
 
 		if ( count( $breadcrumbs ) > 1 ) {
 			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(),
@@ -90,9 +90,10 @@ class GeoCrumbsHooks {
 	/**
 	 * @param Title $title
 	 * @param ParserOutput $parserOutput
+	 * @param User $user
 	 * @return array
 	 */
-	public static function makeTrail( Title $title, ParserOutput $parserOutput ) {
+	public static function makeTrail( Title $title, ParserOutput $parserOutput, User $user ) {
 		$breadcrumbs = [];
 		$idStack = [];
 
@@ -105,7 +106,7 @@ class GeoCrumbsHooks {
 				$parserCache = $parserOutput;
 				$parserOutput = false;
 			} else {
-				$parserCache = self::getParserCache( $title->getArticleID() );
+				$parserCache = self::getParserCache( $title->getArticleID(), $user );
 			}
 			if (
 				$parserCache &&
@@ -169,11 +170,10 @@ class GeoCrumbsHooks {
 
 	/**
 	 * @param int $pageId
+	 * @param User $user
 	 * @return bool|ParserOutput false if not found
 	 */
-	public static function getParserCache( $pageId ) {
-		global $wgUser;
-
+	public static function getParserCache( $pageId, User $user ) {
 		if ( $pageId <= 0 ) {
 			return false;
 		}
@@ -182,6 +182,6 @@ class GeoCrumbsHooks {
 		if ( !$page ) {
 			return false;
 		}
-		return $page->getParserOutput( $page->makeParserOptions( $wgUser ) );
+		return $page->getParserOutput( $page->makeParserOptions( $user ) );
 	}
 }

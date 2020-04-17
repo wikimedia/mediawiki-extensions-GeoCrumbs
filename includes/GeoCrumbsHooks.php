@@ -39,7 +39,7 @@ class GeoCrumbsHooks {
 	 * @param string &$text
 	 * @return bool
 	 */
-	public static function onParserBeforeTidy( Parser $parser, &$text ) {
+	public static function onParserAfterTidy( Parser $parser, &$text ) {
 		$title = $parser->getTitle();
 		if ( $title->isContentPage() ) {
 			self::completeImplicitIsIn( $parser->getOutput(), $title );

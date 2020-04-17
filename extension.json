@@ -23,7 +23,7 @@
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "GeoCrumbsHooks::onParserFirstCallInit",
-		"ParserBeforeTidy": "GeoCrumbsHooks::onParserBeforeTidy",
+		"ParserAfterTidy": "GeoCrumbsHooks::onParserAfterTidy",
 		"OutputPageParserOutput": "GeoCrumbsHooks::onOutputPageParserOutput"
 	},
 	"manifest_version": 1

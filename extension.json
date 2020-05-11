@@ -10,6 +10,9 @@
 	"license-name": "GPL-2.0-or-later",
 	"descriptionmsg": "geocrumbs-desc",
 	"type": "parserhook",
+	"requires": {
+		"MediaWiki": ">= 1.29.0"
+	},
 	"MessagesDirs": {
 		"GeoCrumbs": [
 			"i18n"
@@ -26,5 +29,5 @@
 		"ParserAfterTidy": "GeoCrumbsHooks::onParserAfterTidy",
 		"OutputPageParserOutput": "GeoCrumbsHooks::onOutputPageParserOutput"
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }

@@ -148,23 +148,14 @@ class GeoCrumbsHooks {
 	}
 
 	/**
-	 * @param ParserOutput $parserCache
+	 * @param ParserOutput $parserOutput
 	 * @return Title|null
 	 */
-	public static function getParentRegion( ParserOutput $parserCache ) {
-		$article = $parserCache->getExtensionData( 'GeoCrumbIsIn' );
-		if ( !$article ) {
-			// check CustomData stuff for b/c
-			if ( isset( $parserCache->mCustomData['GeoCrumbIsIn'] ) ) {
-				$article = $parserCache->mCustomData['GeoCrumbIsIn'];
-			} else {
-				return null;
-			}
-		}
+	public static function getParentRegion( ParserOutput $parserOutput ) {
+		$article = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
 		if ( $article ) {
 			return Title::newFromID( $article['id'] );
 		}
-
 		return null;
 	}
 

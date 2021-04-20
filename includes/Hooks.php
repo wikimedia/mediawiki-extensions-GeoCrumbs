@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\GeoCrumbs;
 
 use Html;
-use Linker;
 use MediaWiki\MediaWikiServices;
 use OutputPage;
 use Parser;
@@ -136,7 +135,8 @@ class Hooks {
 			if ( $cnt == 0 ) {
 				$link = $linkText;
 			} else {
-				$link = Linker::link( $title, $linkText );
+				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+				$link = $linkRenderer->makeLink( $title, $linkText );
 			}
 
 			// mark redirects with italics.

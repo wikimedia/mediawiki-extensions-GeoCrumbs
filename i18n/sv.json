@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Lokal Profil"
+			"Lokal Profil",
+			"Sabelöga"
 		]
 	},
+	"geocrumbs-delimiter": "&#32;>&#32;",
 	"geocrumbs-desc": "Visar användarens väg genom wikin"
 }

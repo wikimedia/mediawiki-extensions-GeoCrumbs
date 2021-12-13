@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Base"
+			"Base",
+			"DDPAT"
 		]
 	},
+	"geocrumbs-delimiter": "&#32;>&#32;",
 	"geocrumbs-desc": "Додає слід із хлібних крихт на сторінку"
 }

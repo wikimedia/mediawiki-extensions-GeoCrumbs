@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class GeoCrumbsHooks {
 
 	/**
@@ -169,7 +171,9 @@ class GeoCrumbsHooks {
 			return false;
 		}
 
-		$page = WikiPage::newFromID( $pageId );
+		$page = MediaWikiServices::getInstance()
+			->getWikiPageFactory()
+			->newFromID( $pageId );
 		if ( !$page ) {
 			return false;
 		}

@@ -1,15 +1,24 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
+namespace MediaWiki\Extension\GeoCrumbs;
 
-class GeoCrumbsHooks {
+use Html;
+use Linker;
+use MediaWiki\MediaWikiServices;
+use OutputPage;
+use Parser;
+use ParserOutput;
+use Title;
+use User;
+
+class Hooks {
 
 	/**
 	 * @param Parser $parser
 	 * @return bool
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'isin', 'GeoCrumbsHooks::onFuncIsIn' );
+		$parser->setFunctionHook( 'isin', [ self::class, 'onFuncIsIn' ] );
 		return true;
 	}
 

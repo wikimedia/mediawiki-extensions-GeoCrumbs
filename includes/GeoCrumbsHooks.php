@@ -112,7 +112,8 @@ class GeoCrumbsHooks {
 			}
 			if (
 				$parserCache &&
-				$parserCache->getPageProperty( 'displaytitle' ) == false &&
+				// T301915
+				( $parserCache->getPageProperty( 'displaytitle' ) ?? false ) == false &&
 				$parserCache->getTitleText() !== ''
 			) {
 				$linkText = $parserCache->getTitleText();

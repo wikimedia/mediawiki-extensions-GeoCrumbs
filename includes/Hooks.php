@@ -86,12 +86,12 @@ class Hooks {
 	 * @return bool
 	 */
 	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
-		$breadcrumbs = self::makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
+		$breadCrumbs = self::makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
 
-		if ( count( $breadcrumbs ) > 1 ) {
-			$breadcrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(),
-				$breadcrumbs );
-			$out->addSubtitle( $breadcrumbs );
+		if ( count( $breadCrumbs ) > 1 ) {
+			$breadCrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(),
+				$breadCrumbs );
+			$out->addSubtitle( $breadCrumbs );
 		}
 
 		return true;
@@ -103,36 +103,21 @@ class Hooks {
 	 * @param User $user
 	 * @return array
 	 */
-	public static function makeTrail( Title $title, ParserOutput $parserOutput, User $user ) {
-		$breadcrumbs = [];
-		$idStack = [];
-
+	public static function makeTrail( Title $title, ParserOutput $parserOutput, User $user ): array {
 		if ( $title->getArticleID() <= 0 ) {
 			return [];
 		}
 
+		$breadCrumbs = [];
+		$idStack = [];
 		$langConverter = MediaWikiServices::getInstance()->getLanguageConverterFactory()
 			->getLanguageConverter( $title->getPageLanguage() );
 
-		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
-			if ( $parserOutput ) {
-				$parserCache = $parserOutput;
-				$parserOutput = false;
-			} else {
-				$parserCache = self::getParserCache( $title->getArticleID(), $user );
-			}
-
-			$linkText = $title->getSubpageText();
-			if (
-				$parserCache &&
-				$parserCache->getPageProperty( 'displaytitle' ) === null &&
-				$parserCache->getTitleText() !== ''
-			) {
-				$linkText = $langConverter->convert( $linkText );
-			}
+		for ( $i = 0; $title && $i < 20; $i++ ) {
+			$linkText = $langConverter->convert( $title->getSubpageText() );
 
 			// do not link the final breadcrumb
-			if ( $cnt == 0 ) {
+			if ( $i === 0 ) {
 				$link = $linkText;
 			} else {
 				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
@@ -143,19 +128,26 @@ class Hooks {
 			if ( $title->isRedirect() ) {
 				$link = Html::rawElement( 'i', [], $link );
 			}
-			array_unshift( $breadcrumbs, $link );
+			array_unshift( $breadCrumbs, $link );
 
 			// avoid cyclic trails
 			if ( in_array( $title->getArticleID(), $idStack ) ) {
-				$breadcrumbs[0] = Html::rawElement( 'strike', [], $breadcrumbs[0] );
+				$breadCrumbs[0] = Html::rawElement( 'strike', [], $breadCrumbs[0] );
 				break;
 			}
 			$idStack[] = $title->getArticleID();
 
-			$title = $parserCache ? self::getParentRegion( $parserCache ) : null;
+			$parserOutput = $parserOutput ?? self::getParserOutput( $title->getArticleID(), $user );
+			if ( $parserOutput ) {
+				$title = self::getParentRegion( $parserOutput );
+				// Reset so we can fetch parser output for the parent page
+				$parserOutput = null;
+			} else {
+				$title = null;
+			}
 		}
 
-		return $breadcrumbs;
+		return $breadCrumbs;
 	}
 
 	/**
@@ -175,7 +167,7 @@ class Hooks {
 	 * @param User $user
 	 * @return bool|ParserOutput false if not found
 	 */
-	public static function getParserCache( $pageId, User $user ) {
+	public static function getParserOutput( int $pageId, User $user ) {
 		if ( $pageId <= 0 ) {
 			return false;
 		}

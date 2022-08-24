@@ -111,6 +111,9 @@ class Hooks {
 			return [];
 		}
 
+		$langConverter = MediaWikiServices::getInstance()->getLanguageConverterFactory()
+			->getLanguageConverter( $title->getPageLanguage() );
+
 		for ( $cnt = 0; $title && $cnt < 20; $cnt++ ) {
 			if ( $parserOutput ) {
 				$parserCache = $parserOutput;
@@ -118,19 +121,16 @@ class Hooks {
 			} else {
 				$parserCache = self::getParserCache( $title->getArticleID(), $user );
 			}
+
+			$linkText = $title->getSubpageText();
 			if (
 				$parserCache &&
-				$parserCache->getPageProperty( 'displaytitle' ) == null &&
+				$parserCache->getPageProperty( 'displaytitle' ) === null &&
 				$parserCache->getTitleText() !== ''
 			) {
-				$linkText = $parserCache->getTitleText();
-				$linkTarget = Title::newFromText( $linkText );
-				if ( $linkTarget ) {
-					$linkText = $linkTarget->getSubpageText();
-				}
-			} else {
-				$linkText = $title->getSubpageText();
+				$linkText = $langConverter->convert( $linkText );
 			}
+
 			// do not link the final breadcrumb
 			if ( $cnt == 0 ) {
 				$link = $linkText;

@@ -89,8 +89,9 @@ class Hooks {
 		$breadCrumbs = self::makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
 
 		if ( count( $breadCrumbs ) > 1 ) {
-			$breadCrumbs = implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(),
-				$breadCrumbs );
+			$breadCrumbs = Html::rawElement( 'span', [ 'class' => 'ext-geocrumbs-breadcrumbs' ],
+				implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(), $breadCrumbs )
+			);
 			$out->addSubtitle( $breadCrumbs );
 		}
 

@@ -129,6 +129,10 @@ class Hooks {
 			if ( $title->isRedirect() ) {
 				$link = Html::rawElement( 'i', [], $link );
 			}
+
+			// enclose the links with <bdi> tags. T318507
+			$link = Html::rawElement( 'bdi', [], $link );
+
 			array_unshift( $breadCrumbs, $link );
 
 			// avoid cyclic trails

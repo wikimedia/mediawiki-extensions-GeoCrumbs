@@ -30,7 +30,8 @@ class Hooks {
 		// Tribute to Evan!
 		$article = urldecode( $article );
 
-		$title = Title::newFromText( $article, $parser->getTitle()->getNamespace() );
+		$page = $parser->getPage();
+		$title = Title::newFromText( $article, $page ? $page->getNamespace() : NS_MAIN );
 		if ( $title ) {
 			$article = [ 'id' => $title->getArticleID() ];
 			$parser->getOutput()->setExtensionData( 'GeoCrumbIsIn', $article );
@@ -50,9 +51,10 @@ class Hooks {
 	 * @return bool
 	 */
 	public static function onParserAfterTidy( Parser $parser, &$text ) {
-		$title = $parser->getTitle();
-		if ( $title->isContentPage() ) {
-			self::completeImplicitIsIn( $parser->getOutput(), $title );
+		$page = $parser->getPage();
+		if ( $page && MediaWikiServices::getInstance()->getNamespaceInfo()->isContent( $page->getNamespace() ) ) {
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable The cast cannot return null here
+			self::completeImplicitIsIn( $parser->getOutput(), Title::castFromPageReference( $page ) );
 		}
 
 		return true;

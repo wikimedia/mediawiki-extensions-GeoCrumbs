@@ -4,10 +4,10 @@ namespace MediaWiki\Extension\GeoCrumbs;
 
 use Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use OutputPage;
 use Parser;
 use ParserOutput;
-use Title;
 use User;
 
 class Hooks {

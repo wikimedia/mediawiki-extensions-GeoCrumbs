@@ -25,9 +25,14 @@
 		"MediaWiki\\Extension\\GeoCrumbs\\": "includes/"
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "MediaWiki\\Extension\\GeoCrumbs\\Hooks::onParserFirstCallInit",
-		"ParserAfterTidy": "MediaWiki\\Extension\\GeoCrumbs\\Hooks::onParserAfterTidy",
-		"OutputPageParserOutput": "MediaWiki\\Extension\\GeoCrumbs\\Hooks::onOutputPageParserOutput"
+		"ParserFirstCallInit": "main",
+		"ParserAfterTidy": "main",
+		"OutputPageParserOutput": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\GeoCrumbs\\Hooks"
+		}
 	},
 	"manifest_version": 2
 }

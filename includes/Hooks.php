@@ -3,6 +3,9 @@
 namespace MediaWiki\Extension\GeoCrumbs;
 
 use Html;
+use MediaWiki\Hook\OutputPageParserOutputHook;
+use MediaWiki\Hook\ParserAfterTidyHook;
+use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use OutputPage;
@@ -10,15 +13,17 @@ use Parser;
 use ParserOutput;
 use User;
 
-class Hooks {
+class Hooks implements
+	ParserFirstCallInitHook,
+	ParserAfterTidyHook,
+	OutputPageParserOutputHook
+{
 
 	/**
 	 * @param Parser $parser
-	 * @return bool
 	 */
-	public static function onParserFirstCallInit( Parser $parser ) {
+	public function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'isin', [ self::class, 'onFuncIsIn' ] );
-		return true;
 	}
 
 	/**
@@ -48,16 +53,13 @@ class Hooks {
 	 *
 	 * @param Parser $parser
 	 * @param string &$text
-	 * @return bool
 	 */
-	public static function onParserAfterTidy( Parser $parser, &$text ) {
+	public function onParserAfterTidy( $parser, &$text ) {
 		$page = $parser->getPage();
 		if ( $page && MediaWikiServices::getInstance()->getNamespaceInfo()->isContent( $page->getNamespace() ) ) {
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable The cast cannot return null here
 			self::completeImplicitIsIn( $parser->getOutput(), Title::castFromPageReference( $page ) );
 		}
-
-		return true;
 	}
 
 	/**
@@ -85,9 +87,8 @@ class Hooks {
 	/**
 	 * @param OutputPage $out
 	 * @param ParserOutput $parserOutput
-	 * @return bool
 	 */
-	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $parserOutput ) {
+	public function onOutputPageParserOutput( $out, $parserOutput ): void {
 		$breadCrumbs = self::makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
 
 		if ( count( $breadCrumbs ) > 1 ) {
@@ -96,8 +97,6 @@ class Hooks {
 			);
 			$out->addSubtitle( $breadCrumbs );
 		}
-
-		return true;
 	}
 
 	/**

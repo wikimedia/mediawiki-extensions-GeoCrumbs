@@ -93,7 +93,7 @@ class Hooks implements
 
 		if ( count( $breadCrumbs ) > 1 ) {
 			$breadCrumbs = Html::rawElement( 'span', [ 'class' => 'ext-geocrumbs-breadcrumbs' ],
-				implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->text(), $breadCrumbs )
+				implode( wfMessage( 'geocrumbs-delimiter' )->inContentLanguage()->escaped(), $breadCrumbs )
 			);
 			$out->addSubtitle( $breadCrumbs );
 		}

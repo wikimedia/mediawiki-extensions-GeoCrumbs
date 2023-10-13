@@ -143,7 +143,7 @@ class Hooks implements
 			}
 			$idStack[] = $title->getArticleID();
 
-			$parserOutput = $parserOutput ?? self::getParserOutput( $title->getArticleID(), $user );
+			$parserOutput ??= self::getParserOutput( $title->getArticleID(), $user );
 			if ( $parserOutput ) {
 				$title = self::getParentRegion( $parserOutput );
 				// Reset so we can fetch parser output for the parent page

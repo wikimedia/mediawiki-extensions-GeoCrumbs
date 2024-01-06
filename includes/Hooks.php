@@ -2,16 +2,16 @@
 
 namespace MediaWiki\Extension\GeoCrumbs;
 
-use Html;
 use MediaWiki\Hook\OutputPageParserOutputHook;
 use MediaWiki\Hook\ParserAfterTidyHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
-use OutputPage;
+use MediaWiki\User\User;
 use Parser;
-use ParserOutput;
-use User;
 
 class Hooks implements
 	ParserFirstCallInitHook,

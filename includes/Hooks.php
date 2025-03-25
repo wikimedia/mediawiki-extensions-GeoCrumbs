@@ -8,6 +8,7 @@ use MediaWiki\Languages\LanguageConverterFactory;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Page\PageProps;
 use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
@@ -22,17 +23,20 @@ class Hooks implements
 	private LanguageConverterFactory $langConvFactory;
 	private LinkRenderer $linkRenderer;
 	private NamespaceInfo $nsInfo;
+	private PageProps $pageProps;
 	private WikiPageFactory $wikiPageFactory;
 
 	public function __construct(
 		LanguageConverterFactory $langConvFactory,
 		LinkRenderer $linkRenderer,
 		NamespaceInfo $nsInfo,
+		PageProps $pageProps,
 		WikiPageFactory $wikiPageFactory
 	) {
 		$this->langConvFactory = $langConvFactory;
 		$this->linkRenderer = $linkRenderer;
 		$this->nsInfo = $nsInfo;
+		$this->pageProps = $pageProps;
 		$this->wikiPageFactory = $wikiPageFactory;
 	}
 
@@ -55,8 +59,9 @@ class Hooks implements
 		$page = $parser->getPage();
 		$title = Title::newFromText( $article, $page ? $page->getNamespace() : NS_MAIN );
 		if ( $title ) {
-			$article = [ 'id' => $title->getArticleID() ];
-			$parser->getOutput()->setExtensionData( 'GeoCrumbIsIn', $article );
+			$parser->getOutput()->setNumericPageProperty(
+				'geocrumb-is-in', $title->getArticleID()
+			);
 		}
 
 		return '';
@@ -119,14 +124,9 @@ class Hooks implements
 			}
 			$idStack[] = $title->getArticleID();
 
-			$parserOutput ??= $this->getParserOutput( $title->getArticleID(), $user );
-			if ( $parserOutput ) {
-				$title = $this->getParentRegion( $title, $parserOutput );
-				// Reset so we can fetch parser output for the parent page
-				$parserOutput = null;
-			} else {
-				$title = null;
-			}
+			$title = $this->getParentRegion(
+				$title, ( $i === 0 ) ? $parserOutput : null, $user
+			);
 		}
 
 		return $breadCrumbs;
@@ -134,13 +134,32 @@ class Hooks implements
 
 	/**
 	 * @param Title $title
-	 * @param ParserOutput $parserOutput
+	 * @param ?ParserOutput $parserOutput
+	 * @param User $user
 	 * @return Title|null
 	 */
-	public function getParentRegion( Title $title, ParserOutput $parserOutput ) {
-		$article = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
-		if ( $article ) {
-			return Title::newFromID( $article['id'] );
+	public function getParentRegion(
+		Title $title, ?ParserOutput $parserOutput, User $user
+	): ?Title {
+		if ( $parserOutput ) {
+			$articleID = $parserOutput->getPageProperty( 'geocrumb-is-in' );
+			if ( $articleID !== null ) {
+				return Title::newFromID( $articleID );
+			}
+		} else {
+			$prop = $this->pageProps->getProperties( $title, 'geocrumb-is-in' );
+			if ( $prop ) {
+				return Title::newFromID( (int)$prop[$title->getArticleID()] );
+			}
+
+			// Fallback to extension data until page properties are populated
+			$parserOutput = $this->getParserOutput( $title->getArticleID(), $user );
+			if ( $parserOutput ) {
+				$article = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
+				if ( $article ) {
+					return Title::newFromID( $article['id'] );
+				}
+			}
 		}
 
 		// Generates an implicit IsIn from title for subpages

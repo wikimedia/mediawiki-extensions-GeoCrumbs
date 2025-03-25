@@ -35,6 +35,7 @@
 				"LanguageConverterFactory",
 				"LinkRenderer",
 				"NamespaceInfo",
+				"PageProps",
 				"WikiPageFactory"
 			]
 		}

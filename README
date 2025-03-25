@@ -1,3 +1,1 @@
-A MediaWiki Extension that provides a Bread Crumb navigation. Uses Parser cache.
-
--- hansm 2007-01-02
+A MediaWiki Extension that provides a Bread Crumb navigation. Uses page properties.

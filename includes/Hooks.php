@@ -5,11 +5,14 @@ namespace MediaWiki\Extension\GeoCrumbs;
 use MediaWiki\Hook\ParserAfterTidyHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Page\WikiPageFactory;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
@@ -18,6 +21,22 @@ class Hooks implements
 	ParserAfterTidyHook,
 	OutputPageParserOutputHook
 {
+	private LanguageConverterFactory $langConvFactory;
+	private LinkRenderer $linkRenderer;
+	private NamespaceInfo $nsInfo;
+	private WikiPageFactory $wikiPageFactory;
+
+	public function __construct(
+		LanguageConverterFactory $langConvFactory,
+		LinkRenderer $linkRenderer,
+		NamespaceInfo $nsInfo,
+		WikiPageFactory $wikiPageFactory
+	) {
+		$this->langConvFactory = $langConvFactory;
+		$this->linkRenderer = $linkRenderer;
+		$this->nsInfo = $nsInfo;
+		$this->wikiPageFactory = $wikiPageFactory;
+	}
 
 	/**
 	 * @param Parser $parser
@@ -56,7 +75,7 @@ class Hooks implements
 	 */
 	public function onParserAfterTidy( $parser, &$text ) {
 		$page = $parser->getPage();
-		if ( $page && MediaWikiServices::getInstance()->getNamespaceInfo()->isContent( $page->getNamespace() ) ) {
+		if ( $page && $this->nsInfo->isContent( $page->getNamespace() ) ) {
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable The cast cannot return null here
 			self::completeImplicitIsIn( $parser->getOutput(), Title::castFromPageReference( $page ) );
 		}
@@ -89,7 +108,7 @@ class Hooks implements
 	 * @param ParserOutput $parserOutput
 	 */
 	public function onOutputPageParserOutput( $out, $parserOutput ): void {
-		$breadCrumbs = self::makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
+		$breadCrumbs = $this->makeTrail( $out->getTitle(), $parserOutput, $out->getUser() );
 
 		if ( count( $breadCrumbs ) > 1 ) {
 			$breadCrumbs = Html::rawElement( 'span', [ 'class' => 'ext-geocrumbs-breadcrumbs' ],
@@ -105,15 +124,14 @@ class Hooks implements
 	 * @param User $user
 	 * @return array
 	 */
-	public static function makeTrail( Title $title, ParserOutput $parserOutput, User $user ): array {
+	public function makeTrail( Title $title, ParserOutput $parserOutput, User $user ): array {
 		if ( $title->getArticleID() <= 0 ) {
 			return [];
 		}
 
 		$breadCrumbs = [];
 		$idStack = [];
-		$langConverter = MediaWikiServices::getInstance()->getLanguageConverterFactory()
-			->getLanguageConverter( $title->getPageLanguage() );
+		$langConverter = $this->langConvFactory->getLanguageConverter( $title->getPageLanguage() );
 
 		for ( $i = 0; $title && $i < 20; $i++ ) {
 			$linkText = $langConverter->convert( $title->getSubpageText() );
@@ -122,8 +140,7 @@ class Hooks implements
 			if ( $i === 0 ) {
 				$link = $linkText;
 			} else {
-				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-				$link = $linkRenderer->makeLink( $title, $linkText );
+				$link = $this->linkRenderer->makeLink( $title, $linkText );
 			}
 
 			// mark redirects with italics.
@@ -143,7 +160,7 @@ class Hooks implements
 			}
 			$idStack[] = $title->getArticleID();
 
-			$parserOutput ??= self::getParserOutput( $title->getArticleID(), $user );
+			$parserOutput ??= $this->getParserOutput( $title->getArticleID(), $user );
 			if ( $parserOutput ) {
 				$title = self::getParentRegion( $parserOutput );
 				// Reset so we can fetch parser output for the parent page
@@ -173,14 +190,11 @@ class Hooks implements
 	 * @param User $user
 	 * @return bool|ParserOutput false if not found
 	 */
-	public static function getParserOutput( int $pageId, User $user ) {
+	public function getParserOutput( int $pageId, User $user ) {
 		if ( $pageId <= 0 ) {
 			return false;
 		}
-
-		$page = MediaWikiServices::getInstance()
-			->getWikiPageFactory()
-			->newFromID( $pageId );
+		$page = $this->wikiPageFactory->newFromID( $pageId );
 		if ( !$page ) {
 			return false;
 		}

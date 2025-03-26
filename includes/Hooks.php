@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\GeoCrumbs;
 
-use MediaWiki\Hook\ParserAfterTidyHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Html\Html;
 use MediaWiki\Languages\LanguageConverterFactory;
@@ -18,7 +17,6 @@ use MediaWiki\User\User;
 
 class Hooks implements
 	ParserFirstCallInitHook,
-	ParserAfterTidyHook,
 	OutputPageParserOutputHook
 {
 	private LanguageConverterFactory $langConvFactory;
@@ -62,45 +60,6 @@ class Hooks implements
 		}
 
 		return '';
-	}
-
-	/**
-	 * Assumes that mRevisionId is only set for primary wiki text when a new revision is saved.
-	 * We need this in order to save IsIn info appropriately.
-	 * We could add this at onSkinTemplateOutputPageBeforeExec too, but then it won't be in
-	 * ParserCache, available for other articles.
-	 *
-	 * @param Parser $parser
-	 * @param string &$text
-	 */
-	public function onParserAfterTidy( $parser, &$text ) {
-		$page = $parser->getPage();
-		if ( $page && $this->nsInfo->isContent( $page->getNamespace() ) ) {
-			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable The cast cannot return null here
-			self::completeImplicitIsIn( $parser->getOutput(), Title::castFromPageReference( $page ) );
-		}
-	}
-
-	/**
-	 * Generates an IsIn from title for subpages.
-	 *
-	 * @param ParserOutput $parserOutput
-	 * @param Title $title
-	 */
-	public static function completeImplicitIsIn( $parserOutput, Title $title ) {
-		// only do implicitly if none is defined through parser hook
-		$existing = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
-		if ( $existing !== null ) {
-			return;
-		}
-
-		// if we're dealing with a subpage, the parent should be in breadcrumb
-		$parent = $title->getBaseTitle();
-
-		if ( !$parent->equals( $title ) ) {
-			$article = [ 'id' => $parent->getArticleID() ];
-			$parserOutput->setExtensionData( 'GeoCrumbIsIn', $article );
-		}
 	}
 
 	/**
@@ -162,7 +121,7 @@ class Hooks implements
 
 			$parserOutput ??= $this->getParserOutput( $title->getArticleID(), $user );
 			if ( $parserOutput ) {
-				$title = self::getParentRegion( $parserOutput );
+				$title = $this->getParentRegion( $title, $parserOutput );
 				// Reset so we can fetch parser output for the parent page
 				$parserOutput = null;
 			} else {
@@ -174,14 +133,24 @@ class Hooks implements
 	}
 
 	/**
+	 * @param Title $title
 	 * @param ParserOutput $parserOutput
 	 * @return Title|null
 	 */
-	public static function getParentRegion( ParserOutput $parserOutput ) {
+	public function getParentRegion( Title $title, ParserOutput $parserOutput ) {
 		$article = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
 		if ( $article ) {
 			return Title::newFromID( $article['id'] );
 		}
+
+		// Generates an implicit IsIn from title for subpages
+		if ( $this->nsInfo->isContent( $title->getNamespace() ) ) {
+			$parent = $title->getBaseTitle();
+			if ( !$parent->equals( $title ) ) {
+				return $parent;
+			}
+		}
+
 		return null;
 	}
 

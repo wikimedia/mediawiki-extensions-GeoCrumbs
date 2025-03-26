@@ -26,7 +26,6 @@
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "main",
-		"ParserAfterTidy": "main",
 		"OutputPageParserOutput": "main"
 	},
 	"HookHandlers": {

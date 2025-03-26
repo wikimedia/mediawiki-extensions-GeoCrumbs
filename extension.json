@@ -36,8 +36,14 @@
 				"LinkRenderer",
 				"NamespaceInfo",
 				"PageProps",
-				"WikiPageFactory"
+				"WikiPageFactory",
+				"MainConfig"
 			]
+		}
+	},
+	"config": {
+		"GeoCrumbsUseParserOutputFallback": {
+			"value": true
 		}
 	},
 	"manifest_version": 2

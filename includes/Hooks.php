@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\GeoCrumbs;
 
+use MediaWiki\Config\Config;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Html\Html;
 use MediaWiki\Languages\LanguageConverterFactory;
@@ -25,19 +26,22 @@ class Hooks implements
 	private NamespaceInfo $nsInfo;
 	private PageProps $pageProps;
 	private WikiPageFactory $wikiPageFactory;
+	private bool $useFallback;
 
 	public function __construct(
 		LanguageConverterFactory $langConvFactory,
 		LinkRenderer $linkRenderer,
 		NamespaceInfo $nsInfo,
 		PageProps $pageProps,
-		WikiPageFactory $wikiPageFactory
+		WikiPageFactory $wikiPageFactory,
+		Config $config
 	) {
 		$this->langConvFactory = $langConvFactory;
 		$this->linkRenderer = $linkRenderer;
 		$this->nsInfo = $nsInfo;
 		$this->pageProps = $pageProps;
 		$this->wikiPageFactory = $wikiPageFactory;
+		$this->useFallback = $config->get( 'GeoCrumbsUseParserOutputFallback' );
 	}
 
 	/**
@@ -153,11 +157,13 @@ class Hooks implements
 			}
 
 			// Fallback to extension data until page properties are populated
-			$parserOutput = $this->getParserOutput( $title->getArticleID(), $user );
-			if ( $parserOutput ) {
-				$article = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
-				if ( $article ) {
-					return Title::newFromID( $article['id'] );
+			if ( $this->useFallback ) {
+				$parserOutput = $this->getParserOutput( $title->getArticleID(), $user );
+				if ( $parserOutput ) {
+					$article = $parserOutput->getExtensionData( 'GeoCrumbIsIn' );
+					if ( $article ) {
+						return Title::newFromID( $article['id'] );
+					}
 				}
 			}
 		}

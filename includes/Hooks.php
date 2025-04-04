@@ -164,6 +164,13 @@ class Hooks implements
 					if ( $article ) {
 						return Title::newFromID( $article['id'] );
 					}
+					// T391128: during a transition period, the page property
+					// will be present in the ParserOutput but not yet written
+					// to the database by RefreshLinksJob
+					$article = $parserOutput->getPageProperty( 'geocrumb-is-in' );
+					if ( $article ) {
+						return Title::newFromId( $article );
+					}
 				}
 			}
 		}

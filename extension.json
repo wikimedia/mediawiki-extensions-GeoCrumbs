@@ -11,7 +11,7 @@
 	"descriptionmsg": "geocrumbs-desc",
 	"type": "parserhook",
 	"requires": {
-		"MediaWiki": ">= 1.44"
+		"MediaWiki": ">= 1.45"
 	},
 	"MessagesDirs": {
 		"GeoCrumbs": [

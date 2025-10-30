@@ -43,7 +43,7 @@
 	},
 	"config": {
 		"GeoCrumbsUseParserOutputFallback": {
-			"value": true
+			"value": false
 		}
 	},
 	"manifest_version": 2

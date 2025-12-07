@@ -21,26 +21,16 @@ class Hooks implements
 	ParserFirstCallInitHook,
 	OutputPageParserOutputHook
 {
-	private LanguageConverterFactory $langConvFactory;
-	private LinkRenderer $linkRenderer;
-	private NamespaceInfo $nsInfo;
-	private PageProps $pageProps;
-	private WikiPageFactory $wikiPageFactory;
-	private bool $useFallback;
+	private readonly bool $useFallback;
 
 	public function __construct(
-		LanguageConverterFactory $langConvFactory,
-		LinkRenderer $linkRenderer,
-		NamespaceInfo $nsInfo,
-		PageProps $pageProps,
-		WikiPageFactory $wikiPageFactory,
+		private readonly LanguageConverterFactory $langConvFactory,
+		private readonly LinkRenderer $linkRenderer,
+		private readonly NamespaceInfo $nsInfo,
+		private readonly PageProps $pageProps,
+		private readonly WikiPageFactory $wikiPageFactory,
 		Config $config
 	) {
-		$this->langConvFactory = $langConvFactory;
-		$this->linkRenderer = $linkRenderer;
-		$this->nsInfo = $nsInfo;
-		$this->pageProps = $pageProps;
-		$this->wikiPageFactory = $wikiPageFactory;
 		$this->useFallback = $config->get( 'GeoCrumbsUseParserOutputFallback' );
 	}
 

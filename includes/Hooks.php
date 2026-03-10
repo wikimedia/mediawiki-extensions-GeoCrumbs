@@ -51,7 +51,7 @@ class Hooks implements
 		$article = urldecode( $article );
 
 		$page = $parser->getPage();
-		$title = Title::newFromText( $article, $page ? $page->getNamespace() : NS_MAIN );
+		$title = Title::newFromText( $article, $page->getNamespace() );
 		if ( $title ) {
 			$parser->getOutput()->setNumericPageProperty(
 				'geocrumb-is-in', $title->getArticleID()

@@ -3,14 +3,14 @@
 namespace MediaWiki\Extension\GeoCrumbs;
 
 use MediaWiki\Config\Config;
-use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Html\Html;
-use MediaWiki\Languages\LanguageConverterFactory;
+use MediaWiki\Language\LanguageConverterFactory;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\PageProps;
 use MediaWiki\Page\WikiPageFactory;
+use MediaWiki\Parser\Hook\ParserFirstCallInitHook;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\NamespaceInfo;

@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"geocrumbs-delimiter": "&#32;>&#32;",
+	"geocrumbs-desc": "Pridáva na stránku navigačnú stopu (omrvinky)"
+}
